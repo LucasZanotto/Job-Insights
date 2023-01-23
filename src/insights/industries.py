@@ -1,36 +1,19 @@
 from typing import List, Dict
-import csv
+from src.insights.jobs import read
 
 
 def get_unique_industries(path: str) -> List[str]:
-    with open(path) as jobs_file:
-        jobs_list = csv.DictReader(jobs_file)
-        jobs_add = []
-        for jobs in jobs_list:
-            if len(jobs) > 0:
-                jobs_add.append(jobs["industry"])
-                job_set_unique = set(jobs_add)
-        return job_set_unique
-
-    return jobs
-    """Checks all different industries and returns a list of them
-
-    Must call `read`
-
-    Parameters
-    ----------
-    path : str
-        Must be passed to `read`
-
-    Returns
-    -------
-    list
-        List of unique industries
-    """
-    raise NotImplementedError
+    jobs_list = read(path)
+    industry_add = set()
+    for jobs in jobs_list:
+        if len(jobs["industry"]) > 0:
+            industry_add.add((jobs["industry"]))
+    print(industry_add)
+    return industry_add
 
 
-get_unique_industries("data/jobs.csv")
+if __name__ == "__main__":
+    print(get_unique_industries("data/jobs.csv"))
 
 
 def filter_by_industry(jobs: List[Dict], industry: str) -> List[Dict]:
