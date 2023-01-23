@@ -25,26 +25,10 @@ def get_unique_job_types(path: str) -> List[str]:
             # list = frozenset(jobs["job_type"])
             jobs_add.append(jobs["job_type"])
             job_set_unique = set(jobs_add)
-        print(job_set_unique)
 
         return job_set_unique
 
     return jobs
-    """Checks all different job types and returns a list of them
-
-    Must call `read`
-
-    Parameters
-    ----------
-    path : str
-        Must be passed to `read`
-
-    Returns
-    -------
-    list
-        List of unique job types
-    """
-    raise NotImplementedError
 
 
 get_unique_job_types("data/jobs.csv")
