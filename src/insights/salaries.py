@@ -28,48 +28,34 @@ def matches_salary_range(job: Dict, salary: Union[int, str]) -> bool:
     try:
         if int(job["min_salary"]) > int(job["max_salary"]):
             raise ValueError
-        return job["max_salary"] >= int(salary) >= job["min_salary"]
+        return int(job["max_salary"]) >= int(salary) >= int(job["min_salary"])
     except (ValueError, KeyError, TypeError):
         raise ValueError
-
-    # job_max = str(job["max_salary"]).isnumeric()
-    # job_min = str(job["min_salary"]).isnumeric()
-    # if int(job["min_salary"]) > int(job["max_salary"]):
-    #     raise ValueError
-    # elif job_max is False and job_min is False:
-    #     raise ValueError
-    # elif str(salary).isnumeric() is False:
-    #     raise ValueError
-    # elif (
-    #     job["min_salary"] is None and job["max_salary"] is None
-    # ):
-    #     raise ValueError
-    # elif job["max_salary"] >= int(salary) >= job["min_salary"]:
-    #     return True
-    # return False
-
-
-if __name__ == "__main__":
-    # print(get_max_salary("data/jobs.csv"))
-    # print(get_min_salary("data/jobs.csv"))
-    print(matches_salary_range([{"max_salary": 0, "min_salary": 10}], 0))
 
 
 def filter_by_salary_range(
     jobs: List[dict], salary: Union[str, int]
 ) -> List[Dict]:
-    """Filters a list of jobs by salary range
+    jobs_list = jobs
+    jobs_add = []
+    for job in jobs_list:
+        try:
+            if matches_salary_range(job, salary):
+                jobs_add.append(job)
+        except (ValueError):
+            continue
+    return jobs_add
 
-    Parameters
-    ----------
-    jobs : list
-        The jobs to be filtered
-    salary : int
-        The salary to be used as filter
 
-    Returns
-    -------
-    list
-        Jobs whose salary range contains `salary`
-    """
-    raise NotImplementedError
+if __name__ == "__main__":
+    # print(get_max_salary("data/jobs.csv"))
+    # print(get_min_salary("data/jobs.csv"))
+    # print(matches_salary_range([{"max_salary": 0, "min_salary": 10}], 0))
+    print(filter_by_salary_range([
+        {"max_salary": 0, "min_salary": 10},
+        {"max_salary": 10, "min_salary": 100},
+        {"max_salary": 10000, "min_salary": 200},
+        {"max_salary": 15000, "min_salary": 0},
+        {"max_salary": 1500, "min_salary": 0},
+        {"max_salary": -1, "min_salary": 10},
+    ], 1000))
