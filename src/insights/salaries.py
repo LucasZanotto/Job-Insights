@@ -24,40 +24,39 @@ def get_min_salary(path: str) -> int:
     return lower_salary
 
 
+def matches_salary_range(job: Dict, salary: Union[int, str]) -> bool: 
+    try:
+        if int(job["min_salary"]) > int(job["max_salary"]):
+            raise ValueError
+        return job["max_salary"] >= int(salary) >= job["min_salary"] 
+    except (ValueError, KeyError, TypeError):
+        raise ValueError
+        
+    # job_max = str(job["max_salary"]).isnumeric()
+    # job_min = str(job["min_salary"]).isnumeric()
+    # if int(job["min_salary"]) > int(job["max_salary"]):
+    #     raise ValueError
+    # elif job_max is False and job_min is False:
+    #     raise ValueError
+    # elif str(salary).isnumeric() is False:
+    #     raise ValueError
+    # elif (
+    #     job["min_salary"] is None and job["max_salary"] is None
+    # ):
+    #     raise ValueError
+    # elif job["max_salary"] >= int(salary) >= job["min_salary"]:
+    #     return True
+    # return False
+
+
 if __name__ == "__main__":
-    print(get_max_salary("data/jobs.csv"))
-    print(get_min_salary("data/jobs.csv"))
-
-
-def matches_salary_range(job: Dict, salary: Union[int, str]) -> bool:
-    """Checks if a given salary is in the salary range of a given job
-
-    Parameters
-    ----------
-    job : dict
-        The job with `min_salary` and `max_salary` keys
-    salary : int
-        The salary to check if matches with salary range of the job
-
-    Returns
-    -------
-    bool
-        True if the salary is in the salary range of the job, False otherwise
-
-    Raises
-    ------
-    ValueError
-        If `job["min_salary"]` or `job["max_salary"]` doesn't exists
-        If `job["min_salary"]` or `job["max_salary"]` aren't valid integers
-        If `job["min_salary"]` is greather than `job["max_salary"]`
-        If `salary` isn't a valid integer
-    """
-    raise NotImplementedError
+    # print(get_max_salary("data/jobs.csv"))
+    # print(get_min_salary("data/jobs.csv"))
+    print(matches_salary_range([{"max_salary": 0, "min_salary": 10}], 0))
 
 
 def filter_by_salary_range(
-    jobs: List[dict],
-    salary: Union[str, int]
+    jobs: List[dict], salary: Union[str, int]
 ) -> List[Dict]:
     """Filters a list of jobs by salary range
 
