@@ -4,12 +4,11 @@ from src.insights.jobs import read
 
 def get_unique_industries(path: str) -> List[str]:
     jobs_list = read(path)
-    industry_add = set()
+    industry_add = []
     for jobs in jobs_list:
         if len(jobs["industry"]) > 0:
-            industry_add.add((jobs["industry"]))
-    print(industry_add)
-    return industry_add
+            industry_add.append((jobs["industry"]))
+    return len(industry_add)
 
 
 def filter_by_industry(jobs: List[Dict], industry: str) -> List[Dict]:
