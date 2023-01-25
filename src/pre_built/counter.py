@@ -6,3 +6,5 @@ def count_ocurrences(path: str, word: str) -> int:
 
 
 print(count_ocurrences("data/jobs.csv", "industry"))
+print(count_ocurrences("data/jobs.csv", "10"))
+print(count_ocurrences("data/jobs.csv", ""))
